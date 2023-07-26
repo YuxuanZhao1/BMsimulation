@@ -1,0 +1,11 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+.o
+.so
+*/.o
+*/.so
+*/*/.o
+*/*/.so
