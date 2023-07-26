@@ -7,6 +7,8 @@
 simudata_data_position(m1, m2, n.pred, ran, nm, seed = 1234)
 }
 \arguments{
+\item{n.pred}{Number of unmonitored locations for prediction}
+
 \item{seed}{}
 }
 \description{

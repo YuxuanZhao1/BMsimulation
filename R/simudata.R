@@ -2,7 +2,7 @@
 #'
 #' @param m1
 #' @param m2
-#' @param n.pred
+#' @param n.pred Number of unmonitored locations for prediction
 #' @param ran
 #' @param nm
 #' @param seed
