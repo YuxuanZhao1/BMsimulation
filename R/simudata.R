@@ -1,13 +1,18 @@
 #' Title
-#'
-#' @param m1
-#' @param m2
+#' Simulate the locations of monitoring/unmonitored locations and sampling points
+#' within grid cells
+#' @param m1 Number of monitoring locations
+#' @param m2 Number of grid cells
 #' @param n.pred Number of unmonitored locations for prediction
-#' @param ran
-#' @param nm
-#' @param seed
+#' @param ran Range for the monitoring/unmonitored locations and sampling points within grid cells,
+#' Lower bound is -ran and upper bound is ran
+#' @param nm Number of points with in each of grid cells
+#' @param seed Random seed number
 #'
-#' @return
+#' @return sloc: locations for monitoring locations;
+#' sam: locations for grid cells;
+#' sam.sloc: locations for grid cells and monitoring locations;
+#' sam.sloc1: locations for unmonitored locations
 #' @export
 #' @import MASS
 #' @import geoR
@@ -25,17 +30,23 @@ simudata_data_position <- function(m1, m2, n.pred , ran , nm , seed = 1234){
               sam.sloc1 = sam.sloc1))
 }
 
-#' Title
+#' Title Simulate realizations at locations of monitoring/unmonitored locations and sampling points
+#' within grid cells to construct 'nhours' independent data sets
 #'
-#' @param m1
-#' @param m2
-#' @param n.pred
-#' @param ran
-#' @param nm
-#' @param nhours
-#' @param seed
+#' @param m1 Number of monitoring locations
+#' @param m2 Number of grid cells
+#' @param n.pred Number of unmonitored locations for prediction
+#' @param ran Range for the monitoring/unmonitored locations and sampling points within grid cells,
+#' Lower bound is -ran and upper bound is ran
+#' @param nm Number of points with in each of grid cells
+#' @param nhours Number of independent data sets during simulation
+#' @param seed Random seed number
 #'
-#' @return
+#' @return simu: areal realizations at grid cell level;
+#' true: realizations of true underlying process at unmonitored locations;
+#' airs: realizations of true underlying process at monitored locations;
+#' sam.sloc: locations for grid cells and monitoring locations;
+#' sam.sloc1: locations for unmonitored locations;
 #' @export
 #' @import MASS
 #' @import geoR
