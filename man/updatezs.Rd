@@ -2,7 +2,8 @@
 % Please edit documentation in R/update.R
 \name{updatezs}
 \alias{updatezs}
-\title{Title}
+\title{Title
+Generate MCMC sample from the full conditional distribution of true underlying process Z}
 \usage{
 updatezs(
   X,
@@ -21,8 +22,36 @@ updatezs(
 )
 }
 \arguments{
-\item{sigma3.solve}{}
+\item{X}{the covariate matrix at monitored stations and sampling points within grid cells.}
+
+\item{zhat}{the measurements vector.}
+
+\item{Zbtilde}{the modeling outputs vector.}
+
+\item{A1}{matrix A1}
+
+\item{A2}{matrix A2}
+
+\item{beta}{regression coefficient}
+
+\item{a}{additive bias parameter a}
+
+\item{b}{multiplicative bias parameter b}
+
+\item{nm}{number of sampling points in each grid cell of the modeling output;}
+
+\item{m2}{number of grid cells.}
+
+\item{sigmad}{the output error variance parameter sigma_delta^2}
+
+\item{sigmae}{measurement error variance parameter sigma_e^2}
+
+\item{sigma3.solve}{inverse of the spatial covariance matrix of true underlying process}
+}
+\value{
+MCMC sample of true underlying process Z
 }
 \description{
 Title
+Generate MCMC sample from the full conditional distribution of true underlying process Z
 }

@@ -2,13 +2,26 @@
 % Please edit documentation in R/update.R
 \name{updatetheta}
 \alias{updatetheta}
-\title{Title}
+\title{Title
+Generate MCMC sample from the full conditional distribution of theta, including sill parameter and range parameter.}
 \usage{
 updatetheta(diff, theta, Distance, n, cov.model)
 }
 \arguments{
-\item{cov.model}{}
+\item{diff}{the residuals of the true underlying process.}
+
+\item{theta}{the values of the covariance parameters theta from the previous MCMC iteration.}
+
+\item{Distance}{the Euclidean distance matrix between all the locations including monitored stations and sampling points within grid cells.}
+
+\item{n}{number of monitored stations and sampling points within grid cells.}
+
+\item{cov.model}{one of the three possible choices for the covariance function: “exponential”, “Gaussian” and “matern”.}
+}
+\value{
+MCMC samples of theta
 }
 \description{
 Title
+Generate MCMC sample from the full conditional distribution of theta, including sill parameter and range parameter.
 }

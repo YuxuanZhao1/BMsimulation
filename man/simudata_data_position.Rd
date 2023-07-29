@@ -2,15 +2,34 @@
 % Please edit documentation in R/simudata.R
 \name{simudata_data_position}
 \alias{simudata_data_position}
-\title{Title}
+\title{Title
+Simulate the locations of monitoring/unmonitored locations and sampling points
+within grid cells}
 \usage{
 simudata_data_position(m1, m2, n.pred, ran, nm, seed = 1234)
 }
 \arguments{
+\item{m1}{Number of monitoring locations}
+
+\item{m2}{Number of grid cells}
+
 \item{n.pred}{Number of unmonitored locations for prediction}
 
-\item{seed}{}
+\item{ran}{Range for the monitoring/unmonitored locations and sampling points within grid cells,
+Lower bound is -ran and upper bound is ran}
+
+\item{nm}{Number of points with in each of grid cells}
+
+\item{seed}{Random seed number}
+}
+\value{
+sloc: locations for monitoring locations;
+sam: locations for grid cells;
+sam.sloc: locations for grid cells and monitoring locations;
+sam.sloc1: locations for unmonitored locations
 }
 \description{
 Title
+Simulate the locations of monitoring/unmonitored locations and sampling points
+within grid cells
 }

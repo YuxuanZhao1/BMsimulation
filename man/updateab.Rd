@@ -2,13 +2,31 @@
 % Please edit documentation in R/update.R
 \name{updateab}
 \alias{updateab}
-\title{Title}
+\title{Title generate MCMC sample from the full conditional distribution of a and b}
 \usage{
 updateab(Zbtilde, sigmad, y, ab0, fb.solve, nm, m2, A2)
 }
 \arguments{
-\item{A2}{}
+\item{Zbtilde}{the modeling outputs vector.}
+
+\item{sigmad}{the output error variance parameter sigma_delta^2}
+
+\item{y}{the realizations of the true underlying process at monitored
+stations and sampling points within grid cells.}
+
+\item{ab0}{mean of normal prior of vector including a and b}
+
+\item{fb.solve}{inverse of variance matrix of normal prior of vector including a and b}
+
+\item{nm}{number of sampling points in each grid cell of the modeling output;}
+
+\item{m2}{number of grid cells.}
+
+\item{A2}{matrix A2,}
+}
+\value{
+MCMC samples of a,b
 }
 \description{
-Title
+Title generate MCMC sample from the full conditional distribution of a and b
 }

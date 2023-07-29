@@ -79,12 +79,17 @@ compute_mcse = function(error_vec, nhours = 500, n.pred = 100){
 
 #' Title
 #' Combine results from 5 cases with different number of grid cells
+#'
 #' @param resu_1 The first element from the output of the melding function when we consider 2 grid cells
 #' @param resu_2 The first element from the output of the melding function when we consider 10 grid cells
 #' @param resu_3 The first element from the output of the melding function when we consider 20 grid cells
 #' @param resu_4 The first element from the output of the melding function when we consider 30 grid cells
 #' @param resu_5 The first element from the output of the melding function when we consider 50 grid cells
 #' @param nhours Number of simulation times
+#' @param n.pred Number of unmonitored locations
+#' @param nbeta Length of vector of regression parameter
+#' @param ntheta Length of vector of covariance parameter
+#' @param nab Length of vector of calibration parameter
 #'
 #' @return a list consisting of estimated parameter values and sum squared prediction error during simulation
 #' error_j: Sum of prediction error with j gird cells
@@ -100,48 +105,48 @@ compute_mcse = function(error_vec, nhours = 500, n.pred = 100){
 compute_param_error = function(resu_1 = resu_expo_2,resu_2 = resu_expo_10,
                                resu_3 = resu_expo_20, resu_4 = resu_expo_30,
                                resu_5= resu_expo_50,
-                               nhours = 500){
+                               nhours = 500, n.pred=100,nbeta=3,ntheta=2,nab=2){
 
   predictmat_2<-matrix(rep(NA,nhours*n.pred),ncol=nhours)
   betamat_2<-matrix(rep(NA,nbeta*nhours),ncol=nhours)
-  betasdmat_2<-betamat
+  betasdmat_2<-betamat_2
   thetamat_2<-matrix(rep(NA,ntheta*nhours),ncol=nhours)
-  thetasdmat_2<-thetamat
+  thetasdmat_2<-thetamat_2
   abmat_2<-matrix(rep(NA,nab*nhours),ncol=nhours)
-  absdmat_2<-abmat
+  absdmat_2<-abmat_2
 
   predictmat_10<-matrix(rep(NA,nhours*n.pred),ncol=nhours)
   betamat_10<-matrix(rep(NA,nbeta*nhours),ncol=nhours)
-  betasdmat_10<-betamat
+  betasdmat_10<-betamat_2
   thetamat_10<-matrix(rep(NA,ntheta*nhours),ncol=nhours)
-  thetasdmat_10<-thetamat
+  thetasdmat_10<-thetamat_2
   abmat_10<-matrix(rep(NA,nab*nhours),ncol=nhours)
-  absdmat_10<-abmat
+  absdmat_10<-abmat_2
 
 
   predictmat_20<-matrix(rep(NA,nhours*n.pred),ncol=nhours)
   betamat_20<-matrix(rep(NA,nbeta*nhours),ncol=nhours)
-  betasdmat_20<-betamat
+  betasdmat_20<-betamat_2
   thetamat_20<-matrix(rep(NA,ntheta*nhours),ncol=nhours)
-  thetasdmat_20<-thetamat
+  thetasdmat_20<-thetamat_2
   abmat_20<-matrix(rep(NA,nab*nhours),ncol=nhours)
-  absdmat_20<-abmat
+  absdmat_20<-abmat_2
 
   predictmat_30<-matrix(rep(NA,nhours*n.pred),ncol=nhours)
   betamat_30<-matrix(rep(NA,nbeta*nhours),ncol=nhours)
-  betasdmat_30<-betamat
+  betasdmat_30<-betamat_2
   thetamat_30<-matrix(rep(NA,ntheta*nhours),ncol=nhours)
-  thetasdmat_30<-thetamat
+  thetasdmat_30<-thetamat_2
   abmat_30<-matrix(rep(NA,nab*nhours),ncol=nhours)
-  absdmat_30<-abmat
+  absdmat_30<-abmat_2
 
   predictmat_50<-matrix(rep(NA,nhours*n.pred),ncol=nhours)
   betamat_50<-matrix(rep(NA,nbeta*nhours),ncol=nhours)
-  betasdmat_50<-betamat
+  betasdmat_50<-betamat_2
   thetamat_50<-matrix(rep(NA,ntheta*nhours),ncol=nhours)
-  thetasdmat_50<-thetamat
+  thetasdmat_50<-thetamat_2
   abmat_50<-matrix(rep(NA,nab*nhours),ncol=nhours)
-  absdmat_50<-abmat
+  absdmat_50<-abmat_2
 
   error_2<-rep(NA,nhours)
   error_10<-rep(NA,nhours)
@@ -299,9 +304,12 @@ mspe_tab = function(nhours = 500, errorvec_1 = compute_param_error()$error_2,
 #' @export
 #'
 #' @examples
-mspe_plt = function(nhours = 500, errorvec_1 = list_param_error$error_2, errorvec_2 = list_param_error$error_10,
-                    errorvec_3 = list_param_error$error_20, errorvec_4 = list_param_error$error_30,
-                    errorvec_5 = list_param_error$error_50, n.pred = 100){
+mspe_plt = function(nhours = 500,
+                    errorvec_1 = compute_param_error()$error_2,
+                    errorvec_2 = compute_param_error()$error_10,
+                    errorvec_3 = compute_param_error()$error_20,
+                    errorvec_4 = compute_param_error()$error_30,
+                    errorvec_5 = compute_param_error()$error_50, n.pred = 100){
 
   expo_summary = data.frame(Number.grid.cells = c(2, 10, 20, 30, 50),
                             MSPE = c(mean(errorvec_1/n.pred),
@@ -318,6 +326,26 @@ mspe_plt = function(nhours = 500, errorvec_1 = list_param_error$error_2, errorve
     geom_line(aes(x = Number.grid.cells,
                   y = MSPE))+theme_bw()+ xlab("Number of gird cells")
 }
+
+point_plt = function(resu){
+  ggplot()+
+  geom_point(aes(x = resu[[2]]$sam.sloc[1:2,1], y = resu[[2]]$sam.sloc[1:2,2],
+                 colour = "Sampled points from 2 grid cells",
+                 size = "Sampled points from 2 grid cells"))+
+  geom_point(aes(x = resu[[2]]$sam.sloc[3:22,1], y = resu[[2]]$sam.sloc[3:22,2],
+                 colour = "Monitored locations",
+                 size = "Monitored locations"))+
+  geom_point(aes(x = resu[[2]]$sam.sloc1[,1], y = resu[[2]]$sam.sloc1[,2],
+                 colour = "Unmonitored locations",
+                 size = "Unmonitored locations"))+
+  scale_colour_manual("",values = c("Sampled points from 2 grid cells" = "red",
+                                 "Monitored locations" = "orange",
+                                 "Unmonitored locations" = "black"))+
+  scale_size_manual("",values = c("Sampled points from 2 grid cells" = 2,
+                                 "Monitored locations" = 1.2,
+                                 "Unmonitored locations" = 0.8))+
+  theme(legend.position = "bottom")+
+  xlim(-5,5)+ylim(-5,5)+theme_bw()+xlab("X-coordinate")+ylab("Y-coordinate")}
 
 
 

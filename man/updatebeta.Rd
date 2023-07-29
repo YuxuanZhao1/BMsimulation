@@ -2,13 +2,28 @@
 % Please edit documentation in R/update.R
 \name{updatebeta}
 \alias{updatebeta}
-\title{Title}
+\title{Title
+Generate MCMC sample from the full conditional distribution of beta}
 \usage{
 updatebeta(y, x, prior.mean, prior.var.solve, sigma.solve)
 }
 \arguments{
-\item{sigma.solve}{}
+\item{y}{the realizations of the true underlying process at monitored
+stations and sampling points within grid cells.}
+
+\item{x}{the covariate matrix at monitored stations and sampling points within
+grid cells.}
+
+\item{prior.mean}{prior mean of the coefficient vector beta.}
+
+\item{prior.var.solve}{inverse of the prior variance matrix of the coefficient vector beta.}
+
+\item{sigma.solve}{inverse of the spatial covariance matrix of true underlying process.}
+}
+\value{
+MCMC samples of beta
 }
 \description{
 Title
+Generate MCMC sample from the full conditional distribution of beta
 }

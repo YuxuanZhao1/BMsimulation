@@ -2,13 +2,33 @@
 % Please edit documentation in R/update.R
 \name{updatesigma}
 \alias{updatesigma}
-\title{Title}
+\title{Title generate MCMC sample from the full conditional distribution of sigma_delta^2 and sigma_e^2}
 \usage{
 updatesigma(zhat, Zbtilde, nm, n, m2, y, a, b, A2)
 }
 \arguments{
-\item{A2}{}
+\item{zhat}{the measurements vector.}
+
+\item{Zbtilde}{the modeling outputs vector.}
+
+\item{nm}{number of sampling points in each grid cell of the modeling output;}
+
+\item{n}{number of monitored stations and sampling points within grid cells;}
+
+\item{m2}{number of grid cells.}
+
+\item{y}{the realizations of the true underlying process at monitored
+stations and sampling points within grid cells.}
+
+\item{a}{additive bias parameter a}
+
+\item{b}{multiplicative bias parameter b}
+
+\item{A2}{matrix A2,}
+}
+\value{
+MCMC sample of sigma
 }
 \description{
-Title
+Title generate MCMC sample from the full conditional distribution of sigma_delta^2 and sigma_e^2
 }

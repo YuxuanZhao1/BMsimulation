@@ -24,7 +24,66 @@ run_func(
 )
 }
 \arguments{
-\item{num_for_cores}{}
+\item{m1}{Number of monitoring locations}
+
+\item{m2}{Number of grid cells}
+
+\item{n.pred}{Number of unmonitored locations for prediction}
+
+\item{ran}{Range for the monitoring/unmonitored locations and sampling points within grid cells,
+Lower bound is -ran and upper bound is ran}
+
+\item{nm}{Number of points with in each of grid cells}
+
+\item{nhours}{Number of independent data sets during simulation}
+
+\item{ton}{number of MCMC iterations in the Gibbs sampling}
+
+\item{burnin}{the “burn-in” period of the Gibbs sampling.}
+
+\item{degree}{degree of the polynomial function, 0 the mean is assumed constant across space,
+1 the mean is assumed to be a first order polynomial on the coordinates,
+2 the mean is assumed to be a second order polynomial on the coordinates.}
+
+\item{nbeta}{Length of regression coefficient vector}
+
+\item{ntheta}{Length of covariance parameter vector}
+
+\item{nab}{Length of calibration parameter vector}
+
+\item{nerror}{Length of error vector}
+
+\item{cov.model}{one of the three possible choices for the covariance function: “exponential”, “Gaussian” and “matern”.}
+
+\item{seed}{Number of random seed}
+
+\item{num_for_cores}{Number of cores for parallel computing}
+}
+\value{
+Two lists: the first list will consist of output from melding function
+beta.est: posterior mean of the coefficient vector;
+beta.est.sd: posterior standard deviation of the coefficient vector;
+theta.est: posterior mean of the spatial correlation vector theta;
+theta.est.sd: posterior standard deviation of the spatial correlation vector;
+prediction: posterior mean of the spatial prediction;
+pred.q1: 5% quantile of the posterior distribution of the spatial prediction
+pred.q2: 95% quantile of the posterior distribution of the spatial prediction.
+ab.est: posterior mean of the additive and multiplicative parameters a and b
+ab.est.sd: posterior standard deviation of the additive and multiplicative parameters a and b.
+sigmae.est: posterior mean of the measurement error variance parameter sigma_e^2
+sigmae.est.sd: posterior standard deviation of the measurement error variance parameter sigma_e^2
+sigmad.est: posterior mean of the modeling output error variance parameter sigma_delta^2
+sigmad.est.sd: posterior standard deviation of the modeling output error variance parameter sigma_delta^2
+a.trace: a values during MCMC iterations
+b.trace: b values during MCMC iterations
+beta.trace: regression coefficient values during MCMC iterations
+theta.trace: covariance parameter values during MCMC iterations
+The second list will consist of information about location:
+simu: areal realizations at grid cell level;
+true: realizations of true underlying process at unmonitored locations;
+airs: realizations of true underlying process at monitored locations;
+sam.sloc: locations for grid cells and monitoring locations;
+sam.sloc1: locations for unmonitored locations;
 }
 \description{
 Title
