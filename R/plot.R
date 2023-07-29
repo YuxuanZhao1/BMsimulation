@@ -49,9 +49,9 @@ traceplot_plt = function(result, num_data_set){
 #' @param error_vec The vector composed of sum squared prediction error
 #' @param nhours Number of simulation times
 #' @param n.pred Number of unmonitored locations
-#'
-#' @return Monte Carlo Standard Error during simulation for nhours times
 
+#' @return Monte Carlo Standard Error during simulation for nhours times
+#' @export
 compute_mcse = function(error_vec, nhours = 500, n.pred = 100){
   mcse = sqrt(sum((na.omit(error_vec)[1:nhours]/n.pred-mean(na.omit(error_vec)[1:nhours]/n.pred))^2))/nhours
   return(mcse)

@@ -10,6 +10,7 @@
 #'
 #' @return MCMC samples of beta
 #' @import MASS
+#' @export
 #' @examples
 updatebeta<-function(y,x,prior.mean,prior.var.solve,sigma.solve)
   {  B<-solve(t(x)%*%sigma.solve%*%x+prior.var.solve)
@@ -30,7 +31,7 @@ updatebeta<-function(y,x,prior.mean,prior.var.solve,sigma.solve)
 #' @param cov.model One of the three possible choices for the covariance function: “exponential”, “Gaussian” and “matern”.
 #'
 #' @return MCMC samples of theta
-
+#' @export
 #' @import MASS
 #' @examples
 updatetheta<-function(diff,theta,Distance,n,cov.model)
@@ -162,7 +163,7 @@ updatetheta<-function(diff,theta,Distance,n,cov.model)
 #' @param a Additive bias parameter a
 #' @param b Multiplicative bias parameter b
 #' @param A2 Matrix A2,
-#'
+#' @export
 #' @return MCMC sample of sigma
 #' @import MASS
 #' @examples
@@ -187,9 +188,10 @@ updatesigma<-function(zhat,Zbtilde,nm,n,m2,y,a,b,A2)
 #' @param nm number of sampling points in each grid cell of the modeling output;
 #' @param m2 number of grid cells.
 #' @param A2 matrix A2,
-#'
+
 #' @return MCMC samples of a,b
 #' @import MASS
+#' @export
 #' @examples
 updateab<-function(Zbtilde,sigmad,y,ab0,fb.solve,nm,m2,A2)
   { ### ab0: prior mean of a and b; fb: prior variance of a and b
