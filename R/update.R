@@ -1,16 +1,15 @@
-#' Title
-#'Generate MCMC sample from the full conditional distribution of beta
-#' @param y the realizations of the true underlying process at monitored
+#' Generate MCMC sample from the full conditional distribution of beta
+#'
+#' @param y The realizations of the true underlying process at monitored
 #' stations and sampling points within grid cells.
-#' @param x the covariate matrix at monitored stations and sampling points within
+#' @param x The covariate matrix at monitored stations and sampling points within
 #' grid cells.
-#' @param prior.mean prior mean of the coefficient vector beta.
-#' @param prior.var.solve inverse of the prior variance matrix of the coefficient vector beta.
-#' @param sigma.solve inverse of the spatial covariance matrix of true underlying process.
+#' @param prior.mean Prior mean of the coefficient vector beta.
+#' @param prior.var.solve Inverse of the prior variance matrix of the coefficient vector beta.
+#' @param sigma.solve Inverse of the spatial covariance matrix of true underlying process.
 #'
 #' @return MCMC samples of beta
-#' @export
-#'
+#' @import MASS
 #' @examples
 updatebeta<-function(y,x,prior.mean,prior.var.solve,sigma.solve)
   {  B<-solve(t(x)%*%sigma.solve%*%x+prior.var.solve)
@@ -22,17 +21,17 @@ updatebeta<-function(y,x,prior.mean,prior.var.solve,sigma.solve)
 
 
 
-#' Title
-#'Generate MCMC sample from the full conditional distribution of theta, including sill parameter and range parameter.
-#' @param diff the residuals of the true underlying process.
-#' @param theta the values of the covariance parameters theta from the previous MCMC iteration.
-#' @param Distance the Euclidean distance matrix between all the locations including monitored stations and sampling points within grid cells.
-#' @param n number of monitored stations and sampling points within grid cells.
-#' @param cov.model one of the three possible choices for the covariance function: “exponential”, “Gaussian” and “matern”.
+#' Generate MCMC sample from the full conditional distribution of theta, including sill parameter and range parameter.
+#'
+#' @param diff The residuals of the true underlying process.
+#' @param theta The values of the covariance parameters theta from the previous MCMC iteration.
+#' @param Distance The Euclidean distance matrix between all the locations including monitored stations and sampling points within grid cells.
+#' @param n Number of monitored stations and sampling points within grid cells.
+#' @param cov.model One of the three possible choices for the covariance function: “exponential”, “Gaussian” and “matern”.
 #'
 #' @return MCMC samples of theta
-#' @export
-#'
+
+#' @import MASS
 #' @examples
 updatetheta<-function(diff,theta,Distance,n,cov.model)
   {
@@ -151,22 +150,21 @@ updatetheta<-function(diff,theta,Distance,n,cov.model)
     }
 }
 
-#' Title generate MCMC sample from the full conditional distribution of sigma_delta^2 and sigma_e^2
+#' Generate MCMC sample from the full conditional distribution of sigma_delta^2 and sigma_e^2
 #'
-#' @param zhat the measurements vector.
-#' @param Zbtilde the modeling outputs vector.
-#' @param nm number of sampling points in each grid cell of the modeling output;
-#' @param n  number of monitored stations and sampling points within grid cells;
-#' @param m2 number of grid cells.
-#' @param y the realizations of the true underlying process at monitored
+#' @param zhat The measurements vector.
+#' @param Zbtilde The modeling outputs vector.
+#' @param nm Number of sampling points in each grid cell of the modeling output;
+#' @param n  Number of monitored stations and sampling points within grid cells;
+#' @param m2 Number of grid cells.
+#' @param y The realizations of the true underlying process at monitored
 #' stations and sampling points within grid cells.
-#' @param a additive bias parameter a
-#' @param b multiplicative bias parameter b
-#' @param A2 matrix A2,
+#' @param a Additive bias parameter a
+#' @param b Multiplicative bias parameter b
+#' @param A2 Matrix A2,
 #'
 #' @return MCMC sample of sigma
-#' @export
-#'
+#' @import MASS
 #' @examples
 updatesigma<-function(zhat,Zbtilde,nm,n,m2,y,a,b,A2)
   { sca<-1/(1+0.5*t(zhat-y[(nm*m2+1):n])%*%(zhat-y[(nm*m2+1):n]))
@@ -178,7 +176,7 @@ updatesigma<-function(zhat,Zbtilde,nm,n,m2,y,a,b,A2)
     return( c(sigmadsquare,sigmaesquare) )
 }
 
-#' Title generate MCMC sample from the full conditional distribution of a and b
+#' Generate MCMC sample from the full conditional distribution of a and b
 #'
 #' @param Zbtilde the modeling outputs vector.
 #' @param sigmad the output error variance parameter sigma_delta^2
@@ -191,8 +189,7 @@ updatesigma<-function(zhat,Zbtilde,nm,n,m2,y,a,b,A2)
 #' @param A2 matrix A2,
 #'
 #' @return MCMC samples of a,b
-#' @export
-#'
+#' @import MASS
 #' @examples
 updateab<-function(Zbtilde,sigmad,y,ab0,fb.solve,nm,m2,A2)
   { ### ab0: prior mean of a and b; fb: prior variance of a and b
@@ -206,25 +203,25 @@ updateab<-function(Zbtilde,sigmad,y,ab0,fb.solve,nm,m2,A2)
     return( c(a,s) )
   }
 
-#' Title
+
 #' Generate MCMC sample from the full conditional distribution of true underlying process Z
-#' @param X the covariate matrix at monitored stations and sampling points within grid cells.
-#' @param zhat the measurements vector.
-#' @param Zbtilde the modeling outputs vector.
-#' @param A1 matrix A1
-#' @param A2 matrix A2
-#' @param beta regression coefficient
-#' @param a additive bias parameter a
-#' @param b multiplicative bias parameter b
-#' @param nm number of sampling points in each grid cell of the modeling output;
-#' @param m2 number of grid cells.
-#' @param sigmad the output error variance parameter sigma_delta^2
-#' @param sigmae measurement error variance parameter sigma_e^2
-#' @param sigma3.solve inverse of the spatial covariance matrix of true underlying process
+#' @param X The covariate matrix at monitored stations and sampling points within grid cells.
+#' @param zhat The measurements vector.
+#' @param Zbtilde The modeling outputs vector.
+#' @param A1 Matrix A1
+#' @param A2 Matrix A2
+#' @param beta Regression coefficient
+#' @param a Additive bias parameter a
+#' @param b Nultiplicative bias parameter b
+#' @param nm Number of sampling points in each grid cell of the modeling output;
+#' @param m2 Number of grid cells.
+#' @param sigmad The output error variance parameter sigma_delta^2
+#' @param sigmae Measurement error variance parameter sigma_e^2
+#' @param sigma3.solve Inverse of the spatial covariance matrix of true underlying process
 #'
 #' @return MCMC sample of true underlying process Z
 #' @export
-#'
+#' @import MASS
 #' @examples
 updatezs<-function(X,zhat,Zbtilde,A1,A2,beta,a,b,nm,m2,sigmad,sigmae,sigma3.solve)
   { ## zhelicuole

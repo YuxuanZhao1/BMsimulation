@@ -2,31 +2,12 @@
 % Please edit documentation in R/plot.R
 \name{traceplot_plt}
 \alias{traceplot_plt}
-\title{Title
-Make the traceplot for all of the model parameters}
+\title{Make the traceplot for all of the estimated model parameters}
 \usage{
 traceplot_plt(result, num_data_set)
 }
 \arguments{
-\item{result}{The first element from the output of the melding function, which is
-a list consisting of:
-beta.est: posterior mean of the coefficient vector;
-beta.est.sd: posterior standard deviation of the coefficient vector;
-theta.est: posterior mean of the spatial correlation vector theta;
-theta.est.sd: posterior standard deviation of the spatial correlation vector;
-prediction: posterior mean of the spatial prediction;
-pred.q1: 5% quantile of the posterior distribution of the spatial prediction
-pred.q2: 95% quantile of the posterior distribution of the spatial prediction.
-ab.est: posterior mean of the additive and multiplicative parameters a and b
-ab.est.sd: posterior standard deviation of the additive and multiplicative parameters a and b.
-sigmae.est: posterior mean of the measurement error variance parameter sigma_e^2
-sigmae.est.sd: posterior standard deviation of the measurement error variance parameter sigma_e^2
-sigmad.est: posterior mean of the modeling output error variance parameter sigma_delta^2
-sigmad.est.sd: posterior standard deviation of the modeling output error variance parameter sigma_delta^2
-a.trace: a values during MCMC iterations
-b.trace: b values during MCMC iterations
-beta.trace: regression coefficient values during MCMC iterations
-theta.trace: covariance parameter values during MCMC iterations}
+\item{result}{The first element from the output of the melding function}
 
 \item{num_data_set}{The number of independent during simulation, take the number from 1 to nhours}
 }
@@ -34,6 +15,8 @@ theta.trace: covariance parameter values during MCMC iterations}
 Traceplot of all model parameters
 }
 \description{
-Title
-Make the traceplot for all of the model parameters
+Make the traceplot for all of the estimated model parameters
+}
+\examples{
+traceplot_plt(compute_param_error(), 1)
 }

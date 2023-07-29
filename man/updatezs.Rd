@@ -2,8 +2,7 @@
 % Please edit documentation in R/update.R
 \name{updatezs}
 \alias{updatezs}
-\title{Title
-Generate MCMC sample from the full conditional distribution of true underlying process Z}
+\title{Generate MCMC sample from the full conditional distribution of true underlying process Z}
 \usage{
 updatezs(
   X,
@@ -22,36 +21,35 @@ updatezs(
 )
 }
 \arguments{
-\item{X}{the covariate matrix at monitored stations and sampling points within grid cells.}
+\item{X}{The covariate matrix at monitored stations and sampling points within grid cells.}
 
-\item{zhat}{the measurements vector.}
+\item{zhat}{The measurements vector.}
 
-\item{Zbtilde}{the modeling outputs vector.}
+\item{Zbtilde}{The modeling outputs vector.}
 
-\item{A1}{matrix A1}
+\item{A1}{Matrix A1}
 
-\item{A2}{matrix A2}
+\item{A2}{Matrix A2}
 
-\item{beta}{regression coefficient}
+\item{beta}{Regression coefficient}
 
-\item{a}{additive bias parameter a}
+\item{a}{Additive bias parameter a}
 
-\item{b}{multiplicative bias parameter b}
+\item{b}{Nultiplicative bias parameter b}
 
-\item{nm}{number of sampling points in each grid cell of the modeling output;}
+\item{nm}{Number of sampling points in each grid cell of the modeling output;}
 
-\item{m2}{number of grid cells.}
+\item{m2}{Number of grid cells.}
 
-\item{sigmad}{the output error variance parameter sigma_delta^2}
+\item{sigmad}{The output error variance parameter sigma_delta^2}
 
-\item{sigmae}{measurement error variance parameter sigma_e^2}
+\item{sigmae}{Measurement error variance parameter sigma_e^2}
 
-\item{sigma3.solve}{inverse of the spatial covariance matrix of true underlying process}
+\item{sigma3.solve}{Inverse of the spatial covariance matrix of true underlying process}
 }
 \value{
 MCMC sample of true underlying process Z
 }
 \description{
-Title
 Generate MCMC sample from the full conditional distribution of true underlying process Z
 }

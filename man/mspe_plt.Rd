@@ -2,8 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{mspe_plt}
 \alias{mspe_plt}
-\title{Title
-Make Mean Squared Prediction Error Plot}
+\title{Make Mean Squared Prediction Error Plot}
 \usage{
 mspe_plt(
   nhours = 500,
@@ -34,6 +33,8 @@ mspe_plt(
 The plot of the average of MSPE vs the number of grid cells
 }
 \description{
-Title
 Make Mean Squared Prediction Error Plot
+}
+\examples{
+mspe_tab(nhours = 500, errorvec_1 = compute_param_error()$error_2,errorvec_2 = compute_param_error()$error_10,errorvec_3 = compute_param_error()$error_20,errorvec_4 = compute_param_error()$error_30,errorvec_5 = compute_param_error()$error_50, n.pred = 100)
 }

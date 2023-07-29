@@ -1,24 +1,7 @@
-#' Title
-#' Make the traceplot for all of the model parameters
-#' @param result The first element from the output of the melding function, which is
-#' a list consisting of:
-#' beta.est: posterior mean of the coefficient vector;
-#' beta.est.sd: posterior standard deviation of the coefficient vector;
-#' theta.est: posterior mean of the spatial correlation vector theta;
-#' theta.est.sd: posterior standard deviation of the spatial correlation vector;
-#' prediction: posterior mean of the spatial prediction;
-#' pred.q1: 5% quantile of the posterior distribution of the spatial prediction
-#' pred.q2: 95% quantile of the posterior distribution of the spatial prediction.
-#' ab.est: posterior mean of the additive and multiplicative parameters a and b
-#' ab.est.sd: posterior standard deviation of the additive and multiplicative parameters a and b.
-#' sigmae.est: posterior mean of the measurement error variance parameter sigma_e^2
-#' sigmae.est.sd: posterior standard deviation of the measurement error variance parameter sigma_e^2
-#' sigmad.est: posterior mean of the modeling output error variance parameter sigma_delta^2
-#' sigmad.est.sd: posterior standard deviation of the modeling output error variance parameter sigma_delta^2
-#' a.trace: a values during MCMC iterations
-#' b.trace: b values during MCMC iterations
-#' beta.trace: regression coefficient values during MCMC iterations
-#' theta.trace: covariance parameter values during MCMC iterations
+#' Make the traceplot for all of the estimated model parameters
+#'
+#' @param result The first element from the output of the melding function
+
 #' @param num_data_set The number of independent during simulation, take the number from 1 to nhours
 #'
 #' @return Traceplot of all model parameters
@@ -26,7 +9,7 @@
 #' @import ggplot2
 #' @import latex2exp
 #' @import gridExtra
-#' @examples
+#' @examples traceplot_plt(compute_param_error(), 1)
 traceplot_plt = function(result, num_data_set){
   len = length(result[[1]][[num_data_set]]$a.trace)
   data_trace = data.frame(MCMC.interactions = seq(1, len, 1),
@@ -61,24 +44,22 @@ traceplot_plt = function(result, num_data_set){
 
 }
 
-#' Title
 #' Compute MCSE
+#'
 #' @param error_vec The vector composed of sum squared prediction error
 #' @param nhours Number of simulation times
 #' @param n.pred Number of unmonitored locations
 #'
 #' @return Monte Carlo Standard Error during simulation for nhours times
-#' @export
-#'
-#' @examples
+
 compute_mcse = function(error_vec, nhours = 500, n.pred = 100){
   mcse = sqrt(sum((na.omit(error_vec)[1:nhours]/n.pred-mean(na.omit(error_vec)[1:nhours]/n.pred))^2))/nhours
   return(mcse)
 }
 
 
-#' Title
 #' Combine results from 5 cases with different number of grid cells
+#'
 #'
 #' @param resu_1 The first element from the output of the melding function when we consider 2 grid cells
 #' @param resu_2 The first element from the output of the melding function when we consider 10 grid cells
@@ -91,20 +72,14 @@ compute_mcse = function(error_vec, nhours = 500, n.pred = 100){
 #' @param ntheta Length of vector of covariance parameter
 #' @param nab Length of vector of calibration parameter
 #'
-#' @return a list consisting of estimated parameter values and sum squared prediction error during simulation
-#' error_j: Sum of prediction error with j gird cells
-#' betamat_j: Beta coefficients with j gird cells
-#' betasdmat_j: Standard deviation of beta coefficients with j gird cells
-#' thetamat_j: Covariance parameters with j gird cells
-#' thetasd_j: Standard deviation of covariance parameters with j gird cells
-#' abmat_j: Calibration parameters with j gird cells
-#' absdmat_j: Standard deviation of calibration parameters with j gird cells
+#' @return A list consisting of estimated parameter values and sum squared prediction error during simulation
+
 #' @export
 #'
 #' @examples
-compute_param_error = function(resu_1 = resu_expo_2,resu_2 = resu_expo_10,
-                               resu_3 = resu_expo_20, resu_4 = resu_expo_30,
-                               resu_5= resu_expo_50,
+compute_param_error = function(resu_1 ,resu_2,
+                               resu_3 , resu_4 ,
+                               resu_5,
                                nhours = 500, n.pred=100,nbeta=3,ntheta=2,nab=2){
 
   predictmat_2<-matrix(rep(NA,nhours*n.pred),ncol=nhours)
@@ -251,7 +226,6 @@ compute_param_error = function(resu_1 = resu_expo_2,resu_2 = resu_expo_10,
 
 
 
-#' Title
 #' Make Mean Squared Prediction Error table
 #' @param nhours Number of simulation times
 #' @param errorvec_1 The error vector from output of ``compute_param_error'' function with grid cell = 2
@@ -261,12 +235,10 @@ compute_param_error = function(resu_1 = resu_expo_2,resu_2 = resu_expo_10,
 #' @param errorvec_5 The error vector from output of ``compute_param_error'' function with grid cell = 50
 #' @param n.pred Number of unmonitored locations
 #'
-#' @return A dataframe summarizes the number of grid cells,
-#' the average of MSPE for each case with different number of grid cells,
-#' and corresponding MCSE of average of MSPE.
+#' @return A dataframe summarizes the number of grid cells and average MSPE, MCSE
 #' @export
 #'
-#' @examples
+#' @examples mspe_tab(nhours = 500, errorvec_1 = compute_param_error()$error_2,errorvec_2 = compute_param_error()$error_10,errorvec_3 = compute_param_error()$error_20,errorvec_4 = compute_param_error()$error_30,errorvec_5 = compute_param_error()$error_50, n.pred = 100)
 mspe_tab = function(nhours = 500, errorvec_1 = compute_param_error()$error_2,
                     errorvec_2 = compute_param_error()$error_10,
                     errorvec_3 = compute_param_error()$error_20,
@@ -290,8 +262,8 @@ mspe_tab = function(nhours = 500, errorvec_1 = compute_param_error()$error_2,
 
 }
 
-#' Title
 #' Make Mean Squared Prediction Error Plot
+#'
 #' @param nhours Number of simulation times
 #' @param errorvec_1 The error vector from output of ``compute_param_error'' function with grid cell = 2
 #' @param errorvec_2 The error vector from output of ``compute_param_error'' function with grid cell = 10
@@ -303,7 +275,7 @@ mspe_tab = function(nhours = 500, errorvec_1 = compute_param_error()$error_2,
 #' @return The plot of the average of MSPE vs the number of grid cells
 #' @export
 #'
-#' @examples
+#' @examples mspe_tab(nhours = 500, errorvec_1 = compute_param_error()$error_2,errorvec_2 = compute_param_error()$error_10,errorvec_3 = compute_param_error()$error_20,errorvec_4 = compute_param_error()$error_30,errorvec_5 = compute_param_error()$error_50, n.pred = 100)
 mspe_plt = function(nhours = 500,
                     errorvec_1 = compute_param_error()$error_2,
                     errorvec_2 = compute_param_error()$error_10,
@@ -327,6 +299,14 @@ mspe_plt = function(nhours = 500,
                   y = MSPE))+theme_bw()+ xlab("Number of gird cells")
 }
 
+#' Generate plots to show the locations of monitored/unmonitored stations when grid cell = 2
+#'
+#' @param resu The output from the melding function when when grid cell = 2
+#'
+#' @return A ggplot with locations of monitored/unmonitored stations when grid cell = 2
+#' @export
+#'
+#' @examples point_plt(compute_param_error())
 point_plt = function(resu){
   ggplot()+
   geom_point(aes(x = resu[[2]]$sam.sloc[1:2,1], y = resu[[2]]$sam.sloc[1:2,2],

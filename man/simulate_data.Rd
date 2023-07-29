@@ -2,8 +2,7 @@
 % Please edit documentation in R/simudata.R
 \name{simulate_data}
 \alias{simulate_data}
-\title{Title Simulate realizations at locations of monitoring/unmonitored locations and sampling points
-within grid cells to construct 'nhours' independent data sets}
+\title{Simulate realizations at locations of monitoring/unmonitored locations and sampling points within grid cells to construct 'nhours' independent data sets}
 \usage{
 simulate_data(m1, m2, n.pred, ran, nm, nhours, seed = 1234)
 }
@@ -14,8 +13,7 @@ simulate_data(m1, m2, n.pred, ran, nm, nhours, seed = 1234)
 
 \item{n.pred}{Number of unmonitored locations for prediction}
 
-\item{ran}{Range for the monitoring/unmonitored locations and sampling points within grid cells,
-Lower bound is -ran and upper bound is ran}
+\item{ran}{Range for the monitoring/unmonitored locations and sampling points within grid cells. Lower bound is -ran and upper bound is ran}
 
 \item{nm}{Number of points with in each of grid cells}
 
@@ -24,13 +22,11 @@ Lower bound is -ran and upper bound is ran}
 \item{seed}{Random seed number}
 }
 \value{
-simu: areal realizations at grid cell level;
-true: realizations of true underlying process at unmonitored locations;
-airs: realizations of true underlying process at monitored locations;
-sam.sloc: locations for grid cells and monitoring locations;
-sam.sloc1: locations for unmonitored locations;
+A list including different relizations: Z(B), hat(Z)_u, Z_g, and locations
 }
 \description{
-Title Simulate realizations at locations of monitoring/unmonitored locations and sampling points
-within grid cells to construct 'nhours' independent data sets
+Simulate realizations at locations of monitoring/unmonitored locations and sampling points within grid cells to construct 'nhours' independent data sets
+}
+\examples{
+simulate_data(20, 2, 100, 5, 1, 500, 1234)
 }

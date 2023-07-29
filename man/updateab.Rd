@@ -2,7 +2,7 @@
 % Please edit documentation in R/update.R
 \name{updateab}
 \alias{updateab}
-\title{Title generate MCMC sample from the full conditional distribution of a and b}
+\title{Generate MCMC sample from the full conditional distribution of a and b}
 \usage{
 updateab(Zbtilde, sigmad, y, ab0, fb.solve, nm, m2, A2)
 }
@@ -28,5 +28,5 @@ stations and sampling points within grid cells.}
 MCMC samples of a,b
 }
 \description{
-Title generate MCMC sample from the full conditional distribution of a and b
+Generate MCMC sample from the full conditional distribution of a and b
 }

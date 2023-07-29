@@ -1,15 +1,14 @@
-#' Title
+#' Run the simulation studies
 #'
 #' @param m1 Number of monitoring locations
 #' @param m2 Number of grid cells
 #' @param n.pred Number of unmonitored locations for prediction
-#' @param ran Range for the monitoring/unmonitored locations and sampling points within grid cells,
-#' Lower bound is -ran and upper bound is ran
+#' @param ran Range for the monitoring/unmonitored locations and sampling points within grid cells, Lower bound is -ran and upper bound is ran
 #' @param nm Number of points with in each of grid cells
 #' @param nhours Number of independent data sets during simulation
-#' @param ton number of MCMC iterations in the Gibbs sampling
-#' @param burnin the “burn-in” period of the Gibbs sampling.
-#' @param degree degree of the polynomial function, 0 the mean is assumed constant across space,
+#' @param ton Number of MCMC iterations in the Gibbs sampling
+#' @param burnin The “burn-in” period of the Gibbs sampling.
+#' @param degree Degree of the polynomial function, 0 the mean is assumed constant across space,
 #' 1 the mean is assumed to be a first order polynomial on the coordinates,
 #' 2 the mean is assumed to be a second order polynomial on the coordinates.
 #' @param nbeta Length of regression coefficient vector
@@ -20,30 +19,8 @@
 #' @param seed Number of random seed
 #' @param num_for_cores Number of cores for parallel computing
 #'
-#' @return Two lists: the first list will consist of output from melding function
-#' beta.est: posterior mean of the coefficient vector;
-#' beta.est.sd: posterior standard deviation of the coefficient vector;
-#' theta.est: posterior mean of the spatial correlation vector theta;
-#' theta.est.sd: posterior standard deviation of the spatial correlation vector;
-#' prediction: posterior mean of the spatial prediction;
-#' pred.q1: 5% quantile of the posterior distribution of the spatial prediction
-#' pred.q2: 95% quantile of the posterior distribution of the spatial prediction.
-#' ab.est: posterior mean of the additive and multiplicative parameters a and b
-#' ab.est.sd: posterior standard deviation of the additive and multiplicative parameters a and b.
-#' sigmae.est: posterior mean of the measurement error variance parameter sigma_e^2
-#' sigmae.est.sd: posterior standard deviation of the measurement error variance parameter sigma_e^2
-#' sigmad.est: posterior mean of the modeling output error variance parameter sigma_delta^2
-#' sigmad.est.sd: posterior standard deviation of the modeling output error variance parameter sigma_delta^2
-#' a.trace: a values during MCMC iterations
-#' b.trace: b values during MCMC iterations
-#' beta.trace: regression coefficient values during MCMC iterations
-#' theta.trace: covariance parameter values during MCMC iterations
-#' The second list will consist of information about location:
-#' simu: areal realizations at grid cell level;
-#' true: realizations of true underlying process at unmonitored locations;
-#' airs: realizations of true underlying process at monitored locations;
-#' sam.sloc: locations for grid cells and monitoring locations;
-#' sam.sloc1: locations for unmonitored locations;
+#' @return A lists: the first element will consist of output from melding function and the second list will consist of information about location.
+
 #' @import MASS
 #' @import geoR
 #' @import doParallel
@@ -54,7 +31,7 @@
 #'
 #'
 #'
-#' @examples
+#' @examples run_func(m1=20, m2=2, n.pred = 100, ran = 5, nm = 1, nhours = 50,ton = 1000, burnin = ton/10, degree = 1, nbeta= 3,ntheta= 2, nab=2, nerror=2, cov.model = "exponential", seed,num_for_cores = 6)
 run_func <- function(m1=20, m2=2, n.pred = 100, ran = 5, nm = 1, nhours = 50,
                      ton = 1000, burnin = ton/10, degree = 1, nbeta= 3,
                      ntheta= 2, nab=2, nerror=2, cov.model = "exponential", seed,

@@ -2,8 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{compute_mcse}
 \alias{compute_mcse}
-\title{Title
-Compute MCSE}
+\title{Compute MCSE}
 \usage{
 compute_mcse(error_vec, nhours = 500, n.pred = 100)
 }
@@ -18,6 +17,5 @@ compute_mcse(error_vec, nhours = 500, n.pred = 100)
 Monte Carlo Standard Error during simulation for nhours times
 }
 \description{
-Title
 Compute MCSE
 }

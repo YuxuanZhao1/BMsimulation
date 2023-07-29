@@ -2,15 +2,14 @@
 % Please edit documentation in R/plot.R
 \name{compute_param_error}
 \alias{compute_param_error}
-\title{Title
-Combine results from 5 cases with different number of grid cells}
+\title{Combine results from 5 cases with different number of grid cells}
 \usage{
 compute_param_error(
-  resu_1 = resu_expo_2,
-  resu_2 = resu_expo_10,
-  resu_3 = resu_expo_20,
-  resu_4 = resu_expo_30,
-  resu_5 = resu_expo_50,
+  resu_1,
+  resu_2,
+  resu_3,
+  resu_4,
+  resu_5,
   nhours = 500,
   n.pred = 100,
   nbeta = 3,
@@ -40,16 +39,8 @@ compute_param_error(
 \item{nab}{Length of vector of calibration parameter}
 }
 \value{
-a list consisting of estimated parameter values and sum squared prediction error during simulation
-error_j: Sum of prediction error with j gird cells
-betamat_j: Beta coefficients with j gird cells
-betasdmat_j: Standard deviation of beta coefficients with j gird cells
-thetamat_j: Covariance parameters with j gird cells
-thetasd_j: Standard deviation of covariance parameters with j gird cells
-abmat_j: Calibration parameters with j gird cells
-absdmat_j: Standard deviation of calibration parameters with j gird cells
+A list consisting of estimated parameter values and sum squared prediction error during simulation
 }
 \description{
-Title
 Combine results from 5 cases with different number of grid cells
 }

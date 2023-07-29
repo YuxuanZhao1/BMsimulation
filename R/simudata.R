@@ -1,23 +1,21 @@
-#' Title
-#' Simulate the locations of monitoring/unmonitored locations and sampling points
-#' within grid cells
+#'  Simulate the locations of monitoring/unmonitored locations and sampling points within grid cells
+#'
+#'
 #' @param m1 Number of monitoring locations
 #' @param m2 Number of grid cells
 #' @param n.pred Number of unmonitored locations for prediction
-#' @param ran Range for the monitoring/unmonitored locations and sampling points within grid cells,
-#' Lower bound is -ran and upper bound is ran
+#' @param ran Range for the monitoring/unmonitored locations and sampling points within grid cells. Lower bound is -ran and upper bound is ran
 #' @param nm Number of points with in each of grid cells
 #' @param seed Random seed number
 #'
-#' @return sloc: locations for monitoring locations;
-#' sam: locations for grid cells;
-#' sam.sloc: locations for grid cells and monitoring locations;
-#' sam.sloc1: locations for unmonitored locations
+#' @return A list of locations: monitoring locations, grid cell locations, monitoring locations and grid cell locations, unmonitored locations.
+#'
+
 #' @export
 #' @import MASS
 #' @import geoR
 #'
-#' @examples
+#' @examples simudata_data_position(20, 2, 100, 5, 1, 1234)
 simudata_data_position <- function(m1, m2, n.pred , ran , nm , seed = 1234){
   set.seed(seed)
   sloc <- cbind( runif(m1,min=-ran,max=ran),runif(m1,min=-ran,max=ran) )
@@ -30,28 +28,24 @@ simudata_data_position <- function(m1, m2, n.pred , ran , nm , seed = 1234){
               sam.sloc1 = sam.sloc1))
 }
 
-#' Title Simulate realizations at locations of monitoring/unmonitored locations and sampling points
-#' within grid cells to construct 'nhours' independent data sets
-#'
+#' Simulate realizations at locations of monitoring/unmonitored locations and sampling points within grid cells to construct 'nhours' independent data sets
+
 #' @param m1 Number of monitoring locations
 #' @param m2 Number of grid cells
 #' @param n.pred Number of unmonitored locations for prediction
-#' @param ran Range for the monitoring/unmonitored locations and sampling points within grid cells,
-#' Lower bound is -ran and upper bound is ran
+#' @param ran Range for the monitoring/unmonitored locations and sampling points within grid cells. Lower bound is -ran and upper bound is ran
 #' @param nm Number of points with in each of grid cells
 #' @param nhours Number of independent data sets during simulation
 #' @param seed Random seed number
 #'
-#' @return simu: areal realizations at grid cell level;
-#' true: realizations of true underlying process at unmonitored locations;
-#' airs: realizations of true underlying process at monitored locations;
-#' sam.sloc: locations for grid cells and monitoring locations;
-#' sam.sloc1: locations for unmonitored locations;
+#' @return A list including different relizations: Z(B), hat(Z)_u, Z_g, and locations
+#'
+
 #' @export
 #' @import MASS
 #' @import geoR
 #'
-#' @examples
+#' @examples simulate_data(20, 2, 100, 5, 1, 500, 1234)
 simulate_data <- function(m1, m2, n.pred , ran , nm , nhours, seed = 1234){
   sloc <- simudata_data_position(m1, m2, n.pred , ran , nm , seed)$sloc
   sam <- simudata_data_position(m1, m2, n.pred , ran , nm , seed)$sam
