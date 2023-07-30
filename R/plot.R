@@ -1,6 +1,6 @@
 #' Make the traceplot for all of the estimated model parameters
 #'
-#' @param result The first element from the output of the melding function
+#' @param result The first element from the output of the run_func function
 
 #' @param num_data_set The number of independent during simulation, take the number from 1 to nhours
 #'

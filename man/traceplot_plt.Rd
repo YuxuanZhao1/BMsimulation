@@ -7,7 +7,7 @@
 traceplot_plt(result, num_data_set)
 }
 \arguments{
-\item{result}{The first element from the output of the melding function}
+\item{result}{The first element from the output of the run_func function}
 
 \item{num_data_set}{The number of independent during simulation, take the number from 1 to nhours}
 }
