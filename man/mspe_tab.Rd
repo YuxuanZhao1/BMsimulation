@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{mspe_tab}
 \alias{mspe_tab}
-\title{Make Mean Squared Prediction Error table}
+\title{Make Average Mean Squared Prediction Error table}
 \usage{
 mspe_tab(
   nhours = 500,
@@ -33,7 +33,7 @@ mspe_tab(
 A dataframe summarizes the number of grid cells and average MSPE, MCSE
 }
 \description{
-Make Mean Squared Prediction Error table
+Make Average Mean Squared Prediction Error table
 }
 \examples{
 mspe_tab(nhours = 500, errorvec_1 = compute_param_error()$error_2,errorvec_2 = compute_param_error()$error_10,errorvec_3 = compute_param_error()$error_20,errorvec_4 = compute_param_error()$error_30,errorvec_5 = compute_param_error()$error_50, n.pred = 100)

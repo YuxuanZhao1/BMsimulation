@@ -1,0 +1,155 @@
+---
+title: "Introdunction to `BMsimulation` R package"
+output: 
+  html_document:
+    number_sections: true
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+    toc_depth: 3
+  pdf_document:
+    number_sections: true
+    toc: TRUE
+    toc_depth: 3
+    citation_package: natbib
+bibliography: ref.bib
+# biblio-style: apalike
+vignette: >
+  %\VignetteIndexEntry{Introdunction to `BMsimulation` R package}
+  %\VignetteEncoding{UTF-8}
+  \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72 
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+In this document, we illustrate the main features of the `BMsimulation` R package through examples. The main goal of this package is to perform simulation study to assess the Bayesian Melding model when grid cell varies. 
+
+# Introduction to Bayesian Melding model 
+
+The Bayesian Melding model is applied in spatial statistic. It melds the output from the deterministic simulating model with
+the point-referenced data from the monitoring locations using a hierarchical Bayesian framework.
+
+## Installation 
+
+Install the package from Github. 
+
+```{r,eval=FALSE}
+devtools::install_github('YuxuanZhao1/BMsimulation')
+```
+
+Load the package.
+
+```{r}
+library(BMsimulation)
+```
+## Basic examples about data simulation
+
+### Simulate the locations 
+
+We can use the function `simudata_data_position` to simulate the 20 monitoring and 100 unmonitored locations and 2 grid cells within the coordinates $[-5,5]\times [-5,5]$ and one sampling point within each gird cell under the random seed 1234. 
+
+```{r,eval=FALSE}
+simudata_data_position(20, 2, 100, 5, 1, 1234)
+```
+
+### Simulate the realizations at the position 
+
+We can use the function `simudata_data` to simulate realizations at locations of monitoring/unmonitored stations and within grid cells to construct 500 independent data sets.
+
+```{r,eval=FALSE}
+simudata_data(20, 2, 100, 5, 1, 500, 1234)
+```
+
+
+##  Basic example about replcating the simulation
+
+### Rerun the simulation
+
+We can use the following code to replicate our simulation studies. It allows for parallel computing and takes about half an hour to run the most complicated case with grid cell equal 50 on a 80-core machine. 
+
+```{r, eval = FALSE}
+resu_expo_2 = run_func(m1=20, m2=2, n.pred = 100, ran = 5, nm = 1, nhours = 500,
+                        ton = 10000, burnin = 5000, degree = 1, nbeta= 3,  ntheta= 2, nab=2, nerror=2,
+                        cov.model = "exponential", seed = 1234, num_for_cores = 80)
+
+resu_expo_10 = run_func(m1=20, m2=10, n.pred = 100, ran = 5, nm = 1, nhours = 500,
+         ton = 10000, burnin = 5000, degree = 1, nbeta= 3,  ntheta= 2, nab=2, nerror=2,
+         cov.model = "exponential", seed = 1234, num_for_cores = 80)
+
+resu_expo_20 = run_func(m1=20, m2=20, n.pred = 100, ran = 5, nm = 1, nhours = 500,
+                        ton = 10000, burnin = 5000, degree = 1, nbeta= 3,  ntheta= 2, nab=2, nerror=2,
+                        cov.model = "exponential", seed = 1234, num_for_cores = 80)
+
+resu_expo_30 = run_func(m1=20, m2=30, n.pred = 100, ran = 5, nm = 1, nhours = 500,
+                        ton = 10000, burnin = 5000, degree = 1, nbeta= 3,  ntheta= 2, nab=2, nerror=2,
+                        cov.model = "exponential", seed = 1234, num_for_cores = 80)
+
+resu_expo_50 = run_func(m1=20, m2=50, n.pred = 100, ran = 5, nm = 1, nhours = 500,
+                        ton = 10000, burnin = 5000, degree = 1, nbeta= 3,  ntheta= 2, nab=2, nerror=2,
+                        cov.model = "exponential", seed = 1234, num_for_cores = 80)
+```
+
+We simply load the results to avoid from knitting the file for a long time.
+
+```{r}
+load("running_results.RData")
+```
+
+## Basic example about summmarizing and visualizing the results
+
+### Generate the traceplot
+
+We generate the traceplots of the unknown model parameters for the case with 50 grid cells within 10,000 MCMC iterations using the 30-th data set. 
+
+```{r}
+traceplot_plt(resu_expo_50, 30)
+```
+
+
+### Combing results from different cases with varying number of gird cells
+
+We can use this function to combine the results from different cases. 
+
+```{r}
+res = compute_param_error(resu_1 = resu_expo_2,
+                          resu_2 = resu_expo_10,
+                          resu_3 = resu_expo_20,
+                          resu_4 = resu_expo_30,
+                          resu_5 = resu_expo_50,
+                          nhours = 500,n.pred = 100,nbeta = 3, ntheta = 2, nab = 2)
+```
+
+### Summarize the results
+
+We can generate the table summary of average mean squared prediction error and Monte Carlo Standard Error.
+
+```{r}
+knitr::kable(mspe_tab(nhours = 500, errorvec_1 = res$error_2,
+                    errorvec_2 = res$error_10,
+                    errorvec_3 = res$error_20,
+                    errorvec_4 = res$error_30,
+                    errorvec_5 = res$error_50, n.pred = 100), digits = 4,"markdown")
+```
+
+We can generate the plot to show the changing pattern of average mean squared prediction error. 
+
+```{r}
+mspe_plt(nhours = 500, errorvec_1 = res$error_2,
+                    errorvec_2 = res$error_10,
+                    errorvec_3 = res$error_20,
+                    errorvec_4 = res$error_30,
+                    errorvec_5 = res$error_50, n.pred = 100)
+```
+
+We can also plot the positions of monitored/unmonitored sites and sampling points within 2 grid cell. 
+
+```{r}
+point_plt(resu_expo_2)
+```

@@ -226,7 +226,7 @@ compute_param_error = function(resu_1 ,resu_2,
 
 
 
-#' Make Mean Squared Prediction Error table
+#' Make Average Mean Squared Prediction Error table
 #' @param nhours Number of simulation times
 #' @param errorvec_1 The error vector from output of ``compute_param_error'' function with grid cell = 2
 #' @param errorvec_2 The error vector from output of ``compute_param_error'' function with grid cell = 10

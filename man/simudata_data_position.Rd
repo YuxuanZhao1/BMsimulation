@@ -2,7 +2,7 @@
 % Please edit documentation in R/simudata.R
 \name{simudata_data_position}
 \alias{simudata_data_position}
-\title{Simulate the locations of monitoring/unmonitored locations and sampling points within grid cells}
+\title{Simulate the locations of monitoring/unmonitored stations and grid cells}
 \usage{
 simudata_data_position(m1, m2, n.pred, ran, nm, seed = 1234)
 }
@@ -23,7 +23,7 @@ simudata_data_position(m1, m2, n.pred, ran, nm, seed = 1234)
 A list of locations: monitoring locations, grid cell locations, monitoring locations and grid cell locations, unmonitored locations.
 }
 \description{
-Simulate the locations of monitoring/unmonitored locations and sampling points within grid cells
+Simulate the locations of monitoring/unmonitored stations and grid cells
 }
 \examples{
 simudata_data_position(20, 2, 100, 5, 1, 1234)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/simudata.R
 \name{simulate_data}
 \alias{simulate_data}
-\title{Simulate realizations at locations of monitoring/unmonitored locations and sampling points within grid cells to construct 'nhours' independent data sets}
+\title{Simulate realizations at locations of monitoring/unmonitored stations and within grid cells to construct 'nhours' independent data sets}
 \usage{
 simulate_data(m1, m2, n.pred, ran, nm, nhours, seed = 1234)
 }
@@ -25,7 +25,7 @@ simulate_data(m1, m2, n.pred, ran, nm, nhours, seed = 1234)
 A list including different relizations: Z(B), hat(Z)_u, Z_g, and locations
 }
 \description{
-Simulate realizations at locations of monitoring/unmonitored locations and sampling points within grid cells to construct 'nhours' independent data sets
+Simulate realizations at locations of monitoring/unmonitored stations and within grid cells to construct 'nhours' independent data sets
 }
 \examples{
 simulate_data(20, 2, 100, 5, 1, 500, 1234)

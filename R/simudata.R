@@ -1,4 +1,4 @@
-#'  Simulate the locations of monitoring/unmonitored locations and sampling points within grid cells
+#'  Simulate the locations of monitoring/unmonitored stations and grid cells
 #'
 #'
 #' @param m1 Number of monitoring locations
@@ -28,7 +28,7 @@ simudata_data_position <- function(m1, m2, n.pred , ran , nm , seed = 1234){
               sam.sloc1 = sam.sloc1))
 }
 
-#' Simulate realizations at locations of monitoring/unmonitored locations and sampling points within grid cells to construct 'nhours' independent data sets
+#' Simulate realizations at locations of monitoring/unmonitored stations and within grid cells to construct 'nhours' independent data sets
 
 #' @param m1 Number of monitoring locations
 #' @param m2 Number of grid cells
