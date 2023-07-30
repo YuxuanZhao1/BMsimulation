@@ -12,4 +12,7 @@ devtools::install_github('YuxuanZhao1/BMsimulation')
 ## Documentation 
 * A brief vignette can be found in this repository
 
+## Running Results
+The running results can be downloaded from https://www.dropbox.com/scl/fi/1zzkfoex7ouoy4t9x5dn3/running_results.RData?rlkey=c8648z0fuvj4do8a1802c5d23&dl=0
+
 
