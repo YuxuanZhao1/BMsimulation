@@ -37,6 +37,16 @@ run_func <- function(m1=20, m2=2, n.pred = 100, ran = 5, nm = 1, nhours = 50,
                      ntheta= 2, nab=2, nerror=2, cov.model = "exponential", seed,
                      num_for_cores = 6){
 
+
+  stopifnot(m1 %% 1 == 0 & m1 > 0)
+  stopifnot(m2 %% 1 == 0 & m2 > 0)
+  stopifnot(n.pred %% 1 == 0 & n.pred > 0)
+  stopifnot(nm %% 1 == 0 & nm > 0)
+  stopifnot(nhours %% 1 == 0 & nhours > 0)
+
+  stopifnot(ton %% 1 == 0 & ton > 0)
+  stopifnot(burnin %% 1 == 0 & burnin > 0)
+
   cl <- makeCluster(num_for_cores)
   # clusterExport(cl = cl, list("melding", "q1", "q2", "simulate_data","simudata_data_position",
   #                             "updateab", "updatebeta", "updatesigma", "updatetheta",

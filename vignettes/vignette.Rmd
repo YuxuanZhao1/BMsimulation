@@ -29,12 +29,11 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
-In this document, we illustrate the main features of the `BMsimulation` R package through examples. The main goal of this package is to perform simulation study to assess the Bayesian Melding model when grid cell varies. 
+In this document, we illustrate the main features of the `BMsimulation` R package through examples. The main goal of this package is to perform simulation study to assess the Bayesian Melding model when grid cell varies.
 
 # Introduction to Bayesian Melding model 
 
-The Bayesian Melding model is applied in spatial statistic. It melds the output from the deterministic simulating model with
-the point-referenced data from the monitoring locations using a hierarchical Bayesian framework.
+The Bayesian Melding model is applied in spatial statistic. It melds the output from the deterministic simulating model with the point-referenced data from the monitoring locations using a hierarchical Bayesian framework [@liu2011empirical].
 
 ## Installation 
 
@@ -49,15 +48,17 @@ Load the package.
 ```{r}
 library(BMsimulation)
 ```
+
 ## Basic examples about data simulation
 
 ### Simulate the locations 
 
-We can use the function `simudata_data_position` to simulate the 20 monitoring and 100 unmonitored locations and 2 grid cells within the coordinates $[-5,5]\times [-5,5]$ and one sampling point within each gird cell under the random seed 1234. 
+We can use the function `simudata_data_position` to simulate the 20 monitoring and 100 unmonitored locations and 2 grid cells within the coordinates $[-5,5]\times [-5,5]$ and one sampling point within each gird cell under the random seed `1234`. 
 
 ```{r,eval=FALSE}
 simudata_data_position(m1 = 20, m2 = 2, n.pred = 100 , ran = 5, nm = 1, seed = 1234)
 ```
+
 The arguments will take:
 
 * `m1`: Number of monitoring locations
@@ -83,7 +84,7 @@ simudata_data(m1 = 20, m2 = 2, n.pred = 100 , ran = 5, nm = 1, nhours = 500, see
 
 ### Rerun the simulation
 
-We can use the following code to replicate our simulation studies. It allows for parallel computing and takes about half an hour to run the most complicated case with grid cell equal 50 on a 80-core machine. 
+We can use the following code to replicate our simulation studies. It allows for parallel computing and takes about half an hour to run the most complicated case with grid cell equal 50 on a 80-core machine. The host name of the server I used to run the function is `cpu152.math.private`.
 
 The arguments will take:
 
@@ -126,7 +127,7 @@ resu_expo_50 = run_func(m1=20, m2=50, n.pred = 100, ran = 5, nm = 1, nhours = 50
                         cov.model = "exponential", seed = 1234, num_for_cores = 80)
 ```
 
-We simply load the results to avoid from knitting the file for a long time.
+We simply load the results to avoid from knitting the file for a long time. The results can be downloaded from https://www.dropbox.com/scl/fi/1zzkfoex7ouoy4t9x5dn3/running_results.RData?rlkey=c8648z0fuvj4do8a1802c5d23&dl=0 . 
 
 ```{r}
 load("running_results.RData")
@@ -215,3 +216,36 @@ The function only accepts the output from `run_func` with grid cell = 2.
 ```{r}
 point_plt(resu_expo_2)
 ```
+## Package Testings
+
+We add a checking of the input and output of this package, especially for the main function `run_func``. The following are some examples for testing:
+
+Avoid from invalid `m1`. 
+
+```{r}
+try(run_func(m1 = 1.1, m2 = 2, n.pred = 100, ran = 5, nm = 1, nhours = 2,
+                     ton = 100, burnin = 50, degree = 1, nbeta = 3,
+                     ntheta = 2, nab = 2, nerror = 2, cov.model = "exponential", seed = 42,
+                     num_for_cores = 1))
+```
+
+Avoid from invalid `m2`. 
+
+```{r}
+try(run_func(m1 = 1, m2 = 2.1, n.pred = 100, ran = 5, nm = 1, nhours = 2,
+                     ton = 100, burnin = 50, degree = 1, nbeta = 3,
+                     ntheta = 2, nab = 2, nerror = 2, cov.model = "exponential", seed = 42,
+                     num_for_cores = 1))
+```
+
+Avoid from invalid `n.pred`. 
+
+```{r}
+try(run_func(m1 = 1, m2 = 2, n.pred = 100.1, ran = 5, nm = 1, nhours = 2,
+                     ton = 100, burnin = 50, degree = 1, nbeta = 3,
+                     ntheta = 2, nab = 2, nerror = 2, cov.model = "exponential", seed = 42,
+                     num_for_cores = 1))
+```
+
+# Reference 
+
